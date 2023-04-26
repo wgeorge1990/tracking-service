@@ -1,40 +1,32 @@
 package wg.dev.trackingserver.domain;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 
-import static jakarta.persistence.GenerationType.AUTO;
+import jakarta.persistence.GeneratedValue;
+
+import jakarta.persistence.GenerationType;
+
+import jakarta.persistence.Id;
 
 @Entity
 public class Car {
 	@Id
-	@GeneratedValue(strategy= AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
-	
 	private String brand;
-	
 	private String model;
-	
 	private String color;
-	
 	private String registerNumber;
-	
 	private int year;
-	
 	private int price;
-	
 	public Car() {}
-	
 	public Car(String brand, 
 			String model, 
 			String color, 
 			String registerNumber, 
 			int year, 
 			int price) {
-		
 		super();
-		
 		this.brand = brand;
 		this.model = model;
 		this.color = color;
