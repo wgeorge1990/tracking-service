@@ -2,6 +2,9 @@ package wg.dev.trackingserver.domain;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 public class Car {
 	@Id
@@ -14,11 +17,21 @@ public class Car {
 	private int year;
 	private int price;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="owner")
-	private Owner owner;
-	public Owner getOwner()  { return owner; }
-	public void setOwner(Owner owner)  { this.owner = owner; }
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name="owner")
+//	private Owner owner;
+//	public Owner getOwner()  { return owner; }
+//	public void setOwner(Owner owner)  { this.owner = owner; }
+
+	@ManyToMany(mappedBy="cars")
+	private Set<Owner> owners = new HashSet<Owner>();
+
+	public Set<Owner> getOwners() {
+		return owners;
+	}
+	public void setOwners(Set<Owner> owners) {
+		this.owners = owners;
+	}
 
 	public Car() {}
 	public Car(String brand, 
@@ -26,7 +39,7 @@ public class Car {
 			String color, 
 			String registerNumber, 
 			int year, 
-			int price, Owner owner) {
+			int price, HashSet<Owner> owners) {
 		super();
 		this.brand = brand;
 		this.model = model;
@@ -34,7 +47,7 @@ public class Car {
 		this.registerNumber = registerNumber;
 		this.year = year;
 		this.price = price;
-		this.owner = owner;
+		this.owners = owners;
 	}
 	
 	public long getId() {
