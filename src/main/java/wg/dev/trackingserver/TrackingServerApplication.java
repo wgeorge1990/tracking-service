@@ -16,20 +16,30 @@ public class TrackingServerApplication implements CommandLineRunner {
 	private static final Logger logger = LoggerFactory.getLogger(TrackingServerApplication.class);
 	@Autowired
 
-	private CarRepository repository;
+	private CarRepository carRepository;
 
 	public static void main(String[] args) { SpringApplication.run(TrackingServerApplication.class, args); }
 
 	@Override
 	public void run(String... args) throws Exception {
-		repository.save(new Car("Ford", "Mustang", "Red", "ADF-1121", 2021, 59000));
-		repository.save(new Car("Ford", "F150", "Black", "ADF-2222", 2022, 60000));
-		repository.save(new Car("Honda", "Pilot", "Red", "ADF-3333", 2023, 70000));
-		repository.save(new Car("Honda", "Civic", "Black", "ADF-4444", 2022, 90000));
+		// Uncomment and run to create some testing data for the Car Entity.
+		// TODO: update after object data modeling relationships are updated.
+//		carRepository.save(new Car("Ford", "Mustang", "Red", "ADF-1121", 2021, 59000));
+//		carRepository.save(new Car("Ford", "F150", "Black", "ADF-2222", 2022, 60000));
+//		carRepository.save(new Car("Honda", "Pilot", "Red", "ADF-3333", 2023, 70000));
+//		carRepository.save(new Car("Honda", "Civic", "Black", "ADF-4444", 2022, 90000));
+
 		//fetch all cars from MySQL and log.
-		for (Car car : repository.findAll()) {
+		for (Car car : carRepository.findAll()) {
 			logger.info(car.getBrand() + " " + car.getModel());
 		}
+
+		//fetch and log by other properties
+		for (Car car : carRepository.findByColorOrderByPriceAsc("Red")){
+			logger.info(car.toString());
+			logger.info(car.getBrand() + " " + car.getColor() + " " + car.getPrice());
+		}
+
 
 	}
 
