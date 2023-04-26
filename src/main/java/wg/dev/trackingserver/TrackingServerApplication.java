@@ -13,6 +13,8 @@ import wg.dev.trackingserver.domain.CarRepository;
 import wg.dev.trackingserver.domain.Owner;
 import wg.dev.trackingserver.domain.OwnerRepository;
 
+import java.util.Arrays;
+
 @SpringBootApplication
 public class TrackingServerApplication implements CommandLineRunner {
 	private static final Logger logger = LoggerFactory.getLogger(TrackingServerApplication.class);
@@ -27,13 +29,15 @@ public class TrackingServerApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		carRepository.save(new Car("Ford", "Mustang", "Red", "ADF-1121", 2021, 59000));
-		carRepository.save(new Car("Ford", "F150", "Black", "ADF-2222", 2022, 60000));
-		carRepository.save(new Car("Honda", "Pilot", "Red", "ADF-3333", 2023, 70000));
-		carRepository.save(new Car("Honda", "Civic", "Black", "ADF-4444", 2022, 90000));
-		ownerRepository.save(new Owner("Bob", "Ross"));
-		ownerRepository.save(new Owner("Lucinda", "Williams"));
-		ownerRepository.save(new Owner("Bruce", "Springsteen"));
+		Owner ownerOne = new Owner("Bob", "Ross");
+		Owner ownerTwo = new Owner("Lucinda", "Williams");
+		Owner ownerThree = new Owner("Bruce", "Springsteen");
+		ownerRepository.saveAll(Arrays.asList(ownerOne, ownerTwo, ownerThree));
+
+		carRepository.save(new Car("Ford", "Mustang", "Red", "ADF-1121", 2021, 59000, ownerOne));
+		carRepository.save(new Car("Ford", "F150", "Black", "ADF-2222", 2022, 60000, ownerTwo));
+		carRepository.save(new Car("Honda", "Pilot", "Red", "ADF-3333", 2023, 70000, ownerThree));
+		carRepository.save(new Car("Honda", "Civic", "Black", "ADF-4444", 2022, 90000, ownerOne));
 
 		// fetch all cars from MySQL to logger.INFO
 		for (Car car : carRepository.findAll()) {

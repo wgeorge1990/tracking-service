@@ -1,10 +1,8 @@
 package wg.dev.trackingserver.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -13,6 +11,17 @@ public class Owner {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long ownerId;
     private String firstname, lastname;
+
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="owner")
+    private List<Car> cars;
+
+    public List<Car> getCars() {
+        return cars;
+    }
+
+    public void setCars(List<Car> cars)  {
+        this.cars = cars;
+    }
 
     public Owner() {
     }
