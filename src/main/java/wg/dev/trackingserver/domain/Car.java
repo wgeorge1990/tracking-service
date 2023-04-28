@@ -1,10 +1,6 @@
 package wg.dev.trackingserver.domain;
 
 import jakarta.persistence.*;
-
-import java.util.HashSet;
-import java.util.Set;
-
 @Entity
 public class Car {
 	@Id
@@ -22,16 +18,6 @@ public class Car {
 	private Owner owner;
 	public Owner getOwner()  { return owner; }
 	public void setOwner(Owner owner)  { this.owner = owner; }
-
-//	@ManyToMany(mappedBy="cars")
-//	private Set<Owner> owners = new HashSet<Owner>();
-//
-//	public Set<Owner> getOwners() {
-//		return owners;
-//	}
-//	public void setOwners(Set<Owner> owners) {
-//		this.owners = owners;
-//	}
 
 	public Car() {}
 	public Car(String brand, 

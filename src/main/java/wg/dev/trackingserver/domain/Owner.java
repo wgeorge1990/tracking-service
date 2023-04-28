@@ -1,11 +1,8 @@
 package wg.dev.trackingserver.domain;
 
 import jakarta.persistence.*;
-
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 public class Owner {
@@ -13,20 +10,6 @@ public class Owner {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long ownerId;
     private String firstname, lastname;
-
-//    @ManyToMany(cascade=CascadeType.PERSIST)
-//    @JoinTable(
-//            name="car_owner",
-//            joinColumns = { @JoinColumn(name="ownerid") },
-//            inverseJoinColumns = { @JoinColumn(name="id") }
-//    )
-//
-//    private Set<Car> cars = new HashSet<Car>();
-//
-//    public Set<Car> getCars() { return cars; }
-//
-//    public void setCars(Set<Car> cars) { this.cars = cars; }
-
 
     @OneToMany(cascade=CascadeType.ALL, mappedBy="owner")
     private List<Car> cars;
